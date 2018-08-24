@@ -33,7 +33,7 @@ class Weather_forecasts(db.Model):
 
 
 
-class HelloWorld(Resource):
+class AllWeather(Resource):
     def get(self):
         weather_fields = {
             'id': fields.Integer,
@@ -46,7 +46,7 @@ class HelloWorld(Resource):
         }
         return {'weather': [marshal(weather, weather_fields) for weather in Weather_forecasts.query.all()]}
 
-api.add_resource(HelloWorld, '/')
+api.add_resource(AllWeather, '/')
 
 
 if __name__ == '__main__':
