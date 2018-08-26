@@ -3,12 +3,12 @@ from flask_restful import Resource, Api, fields, marshal
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-app = Flask(__name__)
-api = Api(app)
+application = Flask(__name__)
+api = Api(application)
 
-# Configures app from a config.cfg
-app.config.from_pyfile('config.cfg')
-db = SQLAlchemy(app)
+# Configures application from a config.cfg
+application.config.from_pyfile('config.cfg')
+db = SQLAlchemy(application)
 
 class Weather_forecasts(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -50,4 +50,4 @@ api.add_resource(AllWeather, '/')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
