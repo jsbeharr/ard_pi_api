@@ -10,6 +10,16 @@ api = Api(application)
 application.config.from_pyfile('config.cfg')
 db = SQLAlchemy(application)
 
+weather_fields = {
+            'id': fields.Integer,
+            'date_time' : fields.DateTime,
+            'humidity' : fields.Float,
+            'wetness' : fields.Integer,
+            'wind_speed' : fields.Float,
+            'temperature' : fields.Float,
+            'pressure': fields.Float
+        }
+
 class Weather_forecasts(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     date_time = db.Column(db.DateTime, nullable=False)
@@ -19,34 +29,17 @@ class Weather_forecasts(db.Model):
     temperature = db.Column(db.Float, nullable=False)
     pressure = db.Column(db.Float, nullable=False)
 
-    def __repr__(self):
-        data = {
-            'id': self.id,
-            'date_time' : self.date_time,
-            'humidity' : self.humidity,
-            'wetness' : self.wetness,
-            'wind_speed' : self.wind_speed,
-            'temperature' : self.temperature,
-            'pressure': self.pressure
-        }
-        return json.dumps(data)
-
-
 
 class AllWeather(Resource):
     def get(self):
-        weather_fields = {
-            'id': fields.Integer,
-            'date_time' : fields.DateTime,
-            'humidity' : fields.Float,
-            'wetness' : fields.Integer,
-            'wind_speed' : fields.Float,
-            'temperature' : fields.Float,
-            'pressure': fields.Float
-        }
         return {'weather': [marshal(weather, weather_fields) for weather in Weather_forecasts.query.all()]}
 
-api.add_resource(AllWeather, '/')
+class RecentWeather(Resource):
+    def get(self):
+        return {'weather': [marshal(weather, weather_fields) for weather in Weather_forecasts.query.order_by(Weather_forecasts.date_time.desc()).limit(1)]}
+
+api.add_resource(AllWeather, '/api/weather')
+api.add_resource(RecentWeather, '/api/weather/recent')
 
 
 if __name__ == '__main__':
