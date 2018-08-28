@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from flask_restful import Resource, Api, fields, marshal
+from flask_restful import Resource, Api, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
 
 # Initialize Flask and API
@@ -35,13 +35,15 @@ class Weather_forecasts(db.Model):
 
 # Resource getting all of the weather
 class AllWeather(Resource):
+    @marshal_with(weather_fields)
     def get(self):
-        return {'weather': [marshal(weather, weather_fields) for weather in Weather_forecasts.query.all()]}
+        return Weather_forecasts.query.all()
 
 # Resource getting the most recent weather report
 class RecentWeather(Resource):
+    @marshal_with(weather_fields)
     def get(self):
-        return {'weather': [marshal(weather, weather_fields) for weather in Weather_forecasts.query.order_by(Weather_forecasts.date_time.desc()).limit(1)]}
+        return Weather_forecasts.query.order_by(Weather_forecasts.id.desc()).first()
 
 # API URLS
 # Visit urls to fetch data
