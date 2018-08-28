@@ -1,6 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, request
 from flask_restful import Resource, Api, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 # Initialize Flask and API
 application = Flask(__name__)
@@ -37,13 +38,24 @@ class Weather_forecasts(db.Model):
 class AllWeather(Resource):
     @marshal_with(weather_fields)
     def get(self):
-        return Weather_forecasts.query.all()
+        try:
+            # url arguments do "/weather?<arg1>=<val1>&<arg2>=<val2>&..."
+            # or just do "/weather" to get all data
+            date_begin = request.args.get('begin', default='2018-06-27', type=str)
+            date_end = request.args.get('end', default=datetime.now(), type=str)
+            return Weather_forecasts.query.filter(Weather_forecasts.date_time.between(date_begin, date_end)).all()
+        except Exception as e:
+            return {'error' : str(e) }
+        
 
 # Resource getting the most recent weather report
 class RecentWeather(Resource):
     @marshal_with(weather_fields)
     def get(self):
-        return Weather_forecasts.query.order_by(Weather_forecasts.id.desc()).first()
+        try:
+            return Weather_forecasts.query.order_by(Weather_forecasts.id.desc()).first()
+        except Exception as e:
+            return {'error' : str(e) }
 
 # API URLS
 # Visit urls to fetch data
