@@ -11,13 +11,13 @@ application.config.from_pyfile('config.cfg')
 db = SQLAlchemy(application)
 
 weather_fields = {
-            'id': fields.Integer,
-            'date_time' : fields.DateTime,
-            'humidity' : fields.Float,
-            'wetness' : fields.Integer,
-            'wind_speed' : fields.Float,
-            'temperature' : fields.Float,
-            'pressure': fields.Float
+        'id': fields.Integer,
+        'date_time' : fields.DateTime,
+        'humidity' : fields.Float,
+        'wetness' : fields.Integer,
+        'wind_speed' : fields.Float,
+        'temperature' : fields.Float,
+        'pressure': fields.Float
         }
 
 class Weather_forecasts(db.Model):
