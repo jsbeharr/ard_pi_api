@@ -1,6 +1,4 @@
 import api
-import requests
-import json
 
 
 def test_recent_weather_get():
