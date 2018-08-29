@@ -23,8 +23,8 @@ def test_all_weather_get(client):
 
 
 # Test the get request on /api/weather
-# with argument begin /api/weather?begin=<val>
-def test_weather_arg_begin_get(client):
+# with argument 'begin' /api/weather?begin=<val>
+def test_weather_args_begin_get(client):
     response = get_response_as_json(
             client, 
             '/api/weather?begin="2018-08-23 21:27:49"'
@@ -33,8 +33,8 @@ def test_weather_arg_begin_get(client):
 
 
 # Test the get request on /api/weather
-# with argument end /api/weather?end=<val>
-def test_weather_arg_end_get(client):
+# with argument 'end' /api/weather?end=<val>
+def test_weather_args_end_get(client):
     response = get_response_as_json(
             client, 
             '/api/weather?end="2018-08-23 21:27:49'
@@ -45,7 +45,7 @@ def test_weather_arg_end_get(client):
 # Test the get request on /api/weather
 # with booth begin and end 
 # /api/weather?begin=<val1>&end=<val2>
-def test_weather_arg_booth_get(client):
+def test_weather_args_booth_get(client):
     response = get_response_as_json(
             client,
             '/api/weather?begin="2018-08-22"&end="2018-08-24"'
