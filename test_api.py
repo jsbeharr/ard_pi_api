@@ -26,9 +26,9 @@ def test_all_weather_get(client):
 # with argument 'begin' /api/weather?begin=<val>
 def test_weather_args_begin_get(client):
     response = get_response_as_json(
-            client, 
-            '/api/weather?begin="2018-08-23 21:27:49"'
-            )
+        client,
+        '/api/weather?begin="2018-08-23 21:27:49"'
+    )
     assert len(response) == 4
 
 
@@ -36,20 +36,20 @@ def test_weather_args_begin_get(client):
 # with argument 'end' /api/weather?end=<val>
 def test_weather_args_end_get(client):
     response = get_response_as_json(
-            client, 
-            '/api/weather?end="2018-08-23 21:27:49'
-            )
+        client,
+        '/api/weather?end="2018-08-23 21:27:49'
+    )
     assert len(response) == 3
 
 
 # Test the get request on /api/weather
-# with booth begin and end 
+# with booth begin and end
 # /api/weather?begin=<val1>&end=<val2>
 def test_weather_args_booth_get(client):
     response = get_response_as_json(
-            client,
-            '/api/weather?begin="2018-08-22"&end="2018-08-24"'
-            )
+        client,
+        '/api/weather?begin="2018-08-22"&end="2018-08-24"'
+    )
     assert len(response) == 6
 
 
@@ -82,4 +82,3 @@ def test_weather_DataError(client):
     }
     assert response.status_code == 400
     assert response.get_json() == message
-
