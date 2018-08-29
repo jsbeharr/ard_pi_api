@@ -1,6 +1,12 @@
 import api
 
 
+def test_all_weather_get():
+    app = api.application.test_client()
+    response = app.get('/api/weather')
+    assert len(response.get_json()) == 7
+
+
 def test_recent_weather_get():
     app = api.application.test_client()
     response = app.get('/api/weather/recent')
