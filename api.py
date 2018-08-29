@@ -1,6 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from flask_restful import Resource, Api, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import OperationalError, DataError
 from datetime import datetime
 
 # Initialize Flask and API
@@ -48,15 +49,24 @@ class AllWeather(Resource):
                 'end',
                 default=datetime.now(),
                 type=str)
-            return Weather_forecasts.query \
+            # query weather data
+            forecasts = Weather_forecasts.query \
                 .filter(
                     Weather_forecasts.date_time.between(
                         date_begin,
                         date_end
                     )
                 ).all()
-        except Exception as e:
-            return {'error': str(e)}
+            # checks if any forecasts were collected
+            # checks if any forecasts were collected
+            if forecasts is not None:
+                return forecasts
+            else:
+                return {}
+        except DataError:
+            abort(400, DataError.statement)
+        except OperationalError:
+            abort(500, OperationalError.statement)
 
 
 # Resource getting the most recent weather report
@@ -68,8 +78,10 @@ class RecentWeather(Resource):
                 .order_by(
                     Weather_forecasts.id.desc()
                 ).first()
-        except Exception as e:
-            return {'error': str(e)}
+        except DataError:
+            abort(400, DataError.statement)
+        except OperationalError:
+            abort(500, OperationalError.statement)
 
 
 # API URLS
