@@ -15,7 +15,7 @@ db = SQLAlchemy(application)
 # Data fields for Weather Object
 weather_fields = {
     'id': fields.Integer,
-    'date_time': fields.DateTime,
+    'date_time': fields.String,
     'humidity': fields.Float,
     'wetness': fields.Integer,
     'wind_speed': fields.Float,
@@ -26,7 +26,7 @@ weather_fields = {
 
 class Weather_forecasts(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    date_time = db.Column(db.DateTime, nullable=False)
+    date_time = db.Column(db.String, nullable=False)
     humidity = db.Column(db.Float, nullable=False)
     wetness = db.Column(db.Integer, nullable=False)
     wind_speed = db.Column(db.Float, nullable=False)
