@@ -7,6 +7,19 @@ def test_all_weather_get():
     assert len(response.get_json()) == 7
 
 
+def test_weather_DataError():
+    app = api.application.test_client()
+    response = app.get('/api/weather?begin="dfsd"')
+    message = {
+        'message': ("The browser (or proxy) sent"
+                    " a request that this server could"
+                    " not understand."
+                    )
+    }
+    assert response.status_code == 400
+    assert response.get_json() == message
+
+
 def test_weather_arg_begin_get():
     app = api.application.test_client()
     response = app.get('/api/weather?begin="2018-08-23 21:27:49"')
@@ -22,7 +35,7 @@ def test_weather_arg_end_get():
 def test_weather_arg_booth_get():
     app = api.application.test_client()
     response = app.get('/api/weather?begin="2018-08-22"&end="2018-08-24"')
-    assert len(response.get_json()) == 23
+    assert len(response.get_json()) == 6
 
 
 def test_recent_weather_get():
