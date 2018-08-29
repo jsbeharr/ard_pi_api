@@ -58,7 +58,6 @@ class AllWeather(Resource):
                     )
                 ).all()
             # checks if any forecasts were collected
-            # checks if any forecasts were collected
             if forecasts is not None:
                 return forecasts
             else:
