@@ -1,4 +1,4 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 from flask_restful import Resource, Api, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import OperationalError, DataError
@@ -81,6 +81,11 @@ class RecentWeather(Resource):
             abort(400, DataError.statement)
         except OperationalError:
             abort(500, OperationalError.statement)
+
+
+@application.route('/')
+def index():
+    return render_template('index.html')
 
 
 # API URLS
