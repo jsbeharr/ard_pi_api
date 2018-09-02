@@ -11,12 +11,11 @@
   <body>
     <article class="markdown-body"><h1 id="arduino-pi-weather-api"><a class="header-link" href="#arduino-pi-weather-api"></a>Arduino PI Weather API</h1>
 <h4 id="this-page-includes-documentation-for-developing-with-the-arduino-weather-station-api"><a class="header-link" href="#this-page-includes-documentation-for-developing-with-the-arduino-weather-station-api"></a>This page includes documentation for developing with the arduino weather station api</h4>
-<p>Fetches All weather records</p>
-<pre class="hljs"><code>GET <span class="hljs-regexp">/api/</span>weather</code></pre><p>Gets only the most recent forecast</p>
-<pre class="hljs"><code>GET <span class="hljs-regexp">/api/</span>weather<span class="hljs-regexp">/recent</span></code></pre><p>As of now there are only two arguments <strong>begin</strong> and <strong>end</strong>.
-These process the data only from the <strong>begin</strong> date to the <strong>end</strong> date.</p>
-<pre class="hljs"><code>GET /api/weather?<span class="hljs-keyword">begin</span>=<span class="hljs-string">"2018-08-23 21:27:49"</span>
-<span class="hljs-keyword">GET</span> /api/weather?<span class="hljs-keyword">end</span>=<span class="hljs-string">"2018-08-23 21:27:49"</span>
-<span class="hljs-keyword">GET</span> /api/weather?<span class="hljs-keyword">begin</span>=<span class="hljs-string">"2018-08-22"</span>&amp;<span class="hljs-keyword">end</span>=<span class="hljs-string">"2018-08-24"</span></code></pre>    </article>
+<p>Fetches All Weather Records</p>
+<pre class="hljs"><code><span class="hljs-attribute">GET /api/weather</span></code></pre><p>Get the most recent weather forecasts</p>
+<pre class="hljs"><code><span class="hljs-attribute">GET /api/weather/recent</span></code></pre><p>As of now there are only two arguments <strong>begin</strong> and <strong>end</strong>. These process the data only from the begin date to the <strong>end</strong> date.</p>
+<pre class="hljs"><code><span class="hljs-attribute">GET /api/weather?begin="2018-08-23 21:27:49"
+GET /api/weather?end="2018-08-23 21:27:49"
+GET /api/weather?begin="2018-08-22"&amp;end="2018-08-24"</span></code></pre>    </article>
   </body>
 </html>
