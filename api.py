@@ -1,18 +1,12 @@
 from flask import Flask, request, abort, render_template
 from flask_restful import Resource, Api, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
-from flask_misaka import Misaka
 from sqlalchemy.exc import OperationalError, DataError
-from mdx_gfm import GithubFlavoredMarkdownExtension
 from datetime import datetime
-import markdown
 
 # Initialize Flask and API
 application = Flask(__name__, template_folder='templates')
 api = Api(application)
-
-# Allow application to use markdown
-Misaka(application)
 
 # Configures application from a config.cfg
 application.config.from_pyfile('config.cfg')
@@ -91,11 +85,6 @@ class RecentWeather(Resource):
 
 @application.route('/')
 def index():
-    # content = ''
-    # with open('readme.md', 'r') as f:
-    #     content = f.read()
-    #     md = markdown.Markdown(extensions=[GithubFlavoredMarkdownExtension()])
-    #     content = md.convert(content)
     return render_template('index.html')
 
 
