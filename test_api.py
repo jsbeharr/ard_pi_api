@@ -4,8 +4,9 @@ import pytest
 
 @pytest.fixture
 def client():
-    test_client = api.application.test_client()
-    return test_client
+    api.application.config['TESTING'] = True
+    client = api.application.test_client()
+    return client
 
 
 # Helper Function

@@ -24,7 +24,7 @@ weather_fields = {
 }
 
 
-class Weather_forecasts(db.Model):
+class WeatherForecasts(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     date_time = db.Column(db.String, nullable=False)
     humidity = db.Column(db.Float, nullable=False)
@@ -50,9 +50,9 @@ class AllWeather(Resource):
                 default=datetime.now(),
                 type=str)
             # query weather data
-            forecasts = Weather_forecasts.query \
+            forecasts = WeatherForecasts.query \
                 .filter(
-                    Weather_forecasts.date_time.between(
+                    WeatherForecasts.date_time.between(
                         date_begin,
                         date_end
                     )
@@ -73,9 +73,9 @@ class RecentWeather(Resource):
     @marshal_with(weather_fields)
     def get(self):
         try:
-            return Weather_forecasts.query \
+            return WeatherForecasts.query \
                 .order_by(
-                    Weather_forecasts.id.desc()
+                    WeatherForecasts.id.desc()
                 ).first()
         except DataError:
             abort(400, DataError.statement)
