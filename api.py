@@ -23,6 +23,9 @@ weather_fields = {
     'pressure': fields.Float
 }
 
+# Weather Forecast model
+# Contains all the column data needed
+
 
 class WeatherForecasts(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
