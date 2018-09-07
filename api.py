@@ -1,3 +1,19 @@
+"""
+Arduino PI API
+This is a restful api for interacting with
+the arduino weather data
+
+It uses the flask microservice to generate a 
+interface for which user to get data from the
+weather station
+
+Instruction on how to use it are in the readme
+in the repo as well as on the index route
+of the api
+
+Interaction with the Postgres database is enabled
+through flask-sqlalchemy
+"""
 from flask import Flask, request, abort, render_template
 from flask_restful import Resource, Api, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
@@ -85,6 +101,7 @@ class RecentWeather(Resource):
             abort(500, OperationalError.statement)
 
 
+# On Index display a README like instruction file
 @application.route('/')
 def index():
     return render_template('index.html')

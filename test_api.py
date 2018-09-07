@@ -1,7 +1,17 @@
+"""
+Arduino PI API Test Suite
+This is the test suite for the REST API
+
+In order run test make sure pytest is installed
+or make sure to install the python environment
+using the requirements.txt
+
+"""
 import api
 import pytest
 
 
+# Initializes client with testing environemnt
 @pytest.fixture
 def client():
     api.application.config['TESTING'] = True
@@ -76,9 +86,9 @@ def test_recent_weather_get(client):
 def test_weather_DataError(client):
     response = client.get('/api/weather?begin="dfsd"')
     message = {
-        'message': ("The browser (or proxy) sent"
-                    " a request that this server could"
-                    " not understand."
+        'message': ('The browser (or proxy) sent'
+                    ' a request that this server could'
+                    ' not understand.'
                     )
     }
     assert response.status_code == 400
