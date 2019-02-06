@@ -102,7 +102,7 @@ class RecentWeather(Resource):
 
 
 # On Index display a README like instruction file
-@application.route('/')
+@application.route('/api/')
 def index():
     return render_template('index.html')
 
